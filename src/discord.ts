@@ -41,7 +41,7 @@ export async function sendDiscordAlert(webhookUrl: string, data: MonitorResult, 
 
 		fields.push({
 			name: 'Quick Actions',
-			value: `[🔄 Reset Server](https://monitor.dns.hapara.fail/reset) • [⚡ Better Stack](https://uptime.betterstack.com/team/t321848/incidents) • [☁️ Open GCP](https://console.cloud.google.com/compute/instances?hl=en&project=verdant-bulwark-463123-t0)`,
+			value: `[🔄 Reset Server](https://monitor.dns2.hapara.fail/reset) • [⚡ Better Stack](https://uptime.betterstack.com/team/t321848/incidents) • [☁️ Open DigitalOcean](https://cloud.digitalocean.com/droplets/56229414)`,
 			inline: false,
 		});
 	}
@@ -79,7 +79,7 @@ export async function sendResetNotification(webhookUrl: string, email: string, r
 			{ name: 'User', value: email || 'Unknown', inline: true },
 			{ name: 'IP Address', value: ip || 'Unknown', inline: true },
 			{ name: 'Reason', value: reason || 'No reason provided', inline: false },
-			{ name: 'Target', value: `hf-dns (us-east1-c)`, inline: false },
+			{ name: 'Target', value: `DO Droplet (56229414)`, inline: false },
 		],
 		footer: { text: `Timestamp: ${new Date().toISOString()}` },
 	};

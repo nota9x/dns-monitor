@@ -5,7 +5,7 @@
 export interface Env {
 	DISCORD_WEBHOOK_URL?: string;
 	DOH_SECRET_PATH?: string;
-	GCP_SA_KEY?: string;
+	DO_API_TOKEN?: string;
 }
 
 export interface CheckResult {

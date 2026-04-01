@@ -4,7 +4,7 @@
 
 export const BASE_CONFIG = {
 	// Base DoH endpoint
-	baseEndpoint: 'https://dns.hapara.fail/dns-query',
+	baseEndpoint: 'https://dns2.hapara.fail/dns-query',
 
 	// Failure tolerance:
 	// 2 = Lenient (1–2 fails = UP/Degraded, 3+ fails = DOWN)
@@ -27,10 +27,8 @@ export const TARGETS_RESOLVE = ['google.com', 'amazon.com', 'meta.com', 'wikiped
 
 export const TARGETS_BLOCK = ['hapara.com', 'goguardian.com', 'securly.com', 'lightspeedsystems.com', 'blocksi.net'];
 
-export const GCP_CONFIG = {
-	PROJECT: 'verdant-bulwark-463123-t0',
-	ZONE: 'us-east1-c',
-	INSTANCE: 'hf-dns',
+export const DO_CONFIG = {
+	DROPLET_ID: '56229414',
 };
 
 /**

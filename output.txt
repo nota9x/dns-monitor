@@ -1,0 +1,8 @@
+
+ Γ¢à∩╕Å wrangler 4.79.0
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+Total Upload: 24.99 KiB / gzip: 7.59 KiB
+Uploaded dns2-monitor (3.76 sec)
+Deployed dns2-monitor triggers (2.02 sec)
+  schedule: */5 * * * *
+Current Version ID: 094884bf-e743-4d2a-8a6d-18c891300b83

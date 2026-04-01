@@ -3,8 +3,7 @@
  */
 import type { Env, MonitorResult } from './types';
 import { sendDiscordAlert, sendResetNotification } from './discord';
-import { resetInstance } from './gcp';
-import { getGcpAccessToken } from './oauth';
+import { resetInstance } from './digitalocean';
 
 // --- In-memory rate-limiting (persists within a single isolate's lifetime) ---
 let lastResetTime: number | null = null;
@@ -24,7 +23,7 @@ function getResetPage(email: string, message: string = ''): string {
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reset DNS 1 | DNS Manager</title>
+<title>Reset DNS 2 | DNS Manager</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0f172a;--c:#1e293b;--t:#f8fafc;--t2:#94a3b8;--a:#ef4444;--border:#334155;--accent:#3b82f6}
@@ -51,7 +50,7 @@ button:hover{opacity:0.9}
 <div class="internal-banner">INTERNAL USE ONLY</div>
 <div class="box">
 <div class="brand">hapara.fail</div>
-<h1>DNS 1 Server Reset</h1>
+<h1>DNS 2 Server Reset</h1>
 <p>User: <span class="u">${safeEmail}</span></p>
 <form method="POST" action="/reset">
 <label hidden for="reason">Reason</label>
@@ -103,20 +102,13 @@ export async function handleResetPost(request: Request, env: Env, ctx: Execution
 
 			const reason = (formData.get('reason') as string) || 'No reason provided';
 
-			if (!env.GCP_SA_KEY) {
-				return new Response(getResetPage(email, 'Error: System configuration error (Missing GCP_SA_KEY).'), {
+			if (!env.DO_API_TOKEN) {
+				return new Response(getResetPage(email, 'Error: System configuration error (Missing DO_API_TOKEN).'), {
 					headers: { 'Content-Type': 'text/html' },
 				});
 			}
 
-			let token: string;
-			try {
-				token = await getGcpAccessToken(env.GCP_SA_KEY);
-			} catch (err: any) {
-				return new Response(getResetPage(email, `Error: Failed to obtain GCP token from SA Key. Check logs.`), {
-					headers: { 'Content-Type': 'text/html' },
-				});
-			}
+			let token: string = env.DO_API_TOKEN;
 
 			const result = await resetInstance(token);
 			if (!result.success) {
@@ -137,7 +129,7 @@ export async function handleResetPost(request: Request, env: Env, ctx: Execution
 				);
 			}
 
-			return new Response(getResetPage(email, 'Success: Reset command sent to GCP.'), {
+			return new Response(getResetPage(email, 'Success: Power cycle command sent to DigitalOcean.'), {
 				headers: { 'Content-Type': 'text/html' },
 			});
 		}
