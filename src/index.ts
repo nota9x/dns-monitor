@@ -19,8 +19,9 @@ import type { Env, MonitorResult } from './types';
 // derived from the cached result, which is shared within a Cloudflare PoP.
 
 // Synthetic URL used as a key for the Cache API
-const CACHE_KEY = new Request('https://dns-monitor.internal/latest-check');
-const STATE_CACHE_KEY = new Request('https://dns-monitor.internal/discord-state');
+const endpointUrl = new URL(BASE_CONFIG.baseEndpoint);
+const CACHE_KEY = new Request(`https://dns-monitor.internal/latest-check/${endpointUrl.hostname}`);
+const STATE_CACHE_KEY = new Request(`https://dns-monitor.internal/discord-state/${endpointUrl.hostname}`);
 
 // --- Core Check Logic ---
 
